@@ -1,5 +1,7 @@
 package mk.android.com.livecurrencyconvertor.ui.post
 
+import android.arch.lifecycle.MutableLiveData
+import android.view.View
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -19,6 +21,12 @@ class CurrencyLiveViewModel : BaseViewModel(){
     init {
         loadCurrencies()
     }
+    val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
+
+    override fun onCleared() {
+        super.onCleared()
+        subscription.dispose();
+    }
 
     private fun loadCurrencies() {
          subscription = currencyAPI.getCurrencies("EUR")
@@ -34,18 +42,18 @@ class CurrencyLiveViewModel : BaseViewModel(){
     }
 
     private fun onRetrieveCurrencyListError() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+       // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun onRetrieveCurrencyListSuccess() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+      //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun onRetrieveCurrencyListFinish() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        loadingVisibility.value = View.GONE
     }
 
     private fun onRetrieveCurrencyListStart() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        loadingVisibility.value = View.VISIBLE;
     }
 }

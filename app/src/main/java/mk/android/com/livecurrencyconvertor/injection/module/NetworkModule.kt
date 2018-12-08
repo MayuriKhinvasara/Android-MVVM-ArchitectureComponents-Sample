@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import io.reactivex.schedulers.Schedulers
-import mk.android.com.livecurrencyconvertor.Constants.BASE_URL
 import mk.android.com.livecurrencyconvertor.network.CurrencyAPI
+import mk.android.com.livecurrencyconvertor.util.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory

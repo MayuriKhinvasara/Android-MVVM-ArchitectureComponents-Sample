@@ -1,8 +1,8 @@
 package mk.android.com.livecurrencyconvertor.injection.module.component
 
 import dagger.Component
-import mk.android.com.livecurrencyconvertor.base.CurrencyListViewModel
 import mk.android.com.livecurrencyconvertor.injection.module.NetworkModule
+import mk.android.com.livecurrencyconvertor.ui.post.CurrencyLiveViewModel
 import javax.inject.Singleton
 
 /**
@@ -15,15 +15,15 @@ import javax.inject.Singleton
 @Component(modules = [(NetworkModule::class)])
 interface ViewModelInjector {
     /**
-     * Injects required dependencies into the specified PostListViewModel.
-     * @param postListViewModel PostListViewModel in which to inject the dependencies
+     * Injects required dependencies into the specified CurrencyLiveViewModel
+     * @param currencytlistviewModel   in which to inject the dependencies
      */
 
-    fun inject(currencytlistviewModel: CurrencyListViewModel)
+    fun inject(currencytlistviewModel: CurrencyLiveViewModel)
 
     @Component.Builder
-interface Builder{
-        fun build() : ViewModelInjector
+    interface Builder {
+        fun build(): ViewModelInjector
 
         fun networkModule(networkModule: NetworkModule): Builder
     }

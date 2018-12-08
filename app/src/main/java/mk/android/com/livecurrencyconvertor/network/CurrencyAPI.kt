@@ -9,7 +9,7 @@ import retrofit2.http.Query
  * Created by Mayuri Khinvasara on 08,December,2018
  */
 interface CurrencyAPI {
-    @GET("latest")
+    @GET("/latest")
     fun getCurrencies(
             @Query("base") base : String
         //  ,  @Query("amount") amount : Double
@@ -17,5 +17,6 @@ interface CurrencyAPI {
     ): Observable<List<CurrencyModel>>
 
 
-
+ //   @GET(LATEST_RATES)
+  //  fun phoneTypes(@Query("base") currency: String): Single<RatesResponse>
 }
