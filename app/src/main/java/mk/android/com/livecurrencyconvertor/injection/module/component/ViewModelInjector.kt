@@ -2,7 +2,7 @@ package mk.android.com.livecurrencyconvertor.injection.module.component
 
 import dagger.Component
 import mk.android.com.livecurrencyconvertor.injection.module.NetworkModule
-import mk.android.com.livecurrencyconvertor.ui.post.CurrencyLiveViewModel
+import mk.android.com.livecurrencyconvertor.ui.post.CurrencyListViewModel
 import javax.inject.Singleton
 
 /**
@@ -19,7 +19,7 @@ interface ViewModelInjector {
      * @param currencytlistviewModel   in which to inject the dependencies
      */
 
-    fun inject(currencytlistviewModel: CurrencyLiveViewModel)
+    fun inject(currencytlistviewModel: CurrencyListViewModel)
 
     @Component.Builder
     interface Builder {

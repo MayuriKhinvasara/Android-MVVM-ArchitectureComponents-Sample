@@ -5,48 +5,55 @@ import android.view.View
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import mk.android.com.livecurrencyconvertor.R
 import mk.android.com.livecurrencyconvertor.base.BaseViewModel
+import mk.android.com.livecurrencyconvertor.model.CurrencyModel
 import mk.android.com.livecurrencyconvertor.network.CurrencyAPI
+import mk.android.com.livecurrencyconvertor.ui.post.adapter.CurrencyListAdapter
 import javax.inject.Inject
 
 /**
  * Created by Mayuri Khinvasara on 08,December,2018
  */
-class CurrencyLiveViewModel : BaseViewModel(){
+class CurrencyListViewModel : BaseViewModel(){
 
     @Inject
     lateinit var currencyAPI: CurrencyAPI
     private lateinit var subscription: Disposable
+    val currencyListAdapter: CurrencyListAdapter = CurrencyListAdapter()
+    val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
+    val errorMessage:MutableLiveData<Int> = MutableLiveData()
+    val errorClickListener = View.OnClickListener { loadCurrencies() }
 
     init {
         loadCurrencies()
     }
-    val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
-
     override fun onCleared() {
         super.onCleared()
         subscription.dispose();
     }
 
+
     private fun loadCurrencies() {
-         subscription = currencyAPI.getCurrencies("EUR")
+         subscription = currencyAPI.getCurrencies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { onRetrieveCurrencyListStart() }
                 .doOnTerminate { onRetrieveCurrencyListFinish() }
                 .subscribe(
-                        { onRetrieveCurrencyListSuccess() },
+                        { result -> onRetrieveCurrencyListSuccess(result) },
                         { onRetrieveCurrencyListError() }
                 )
 
     }
 
     private fun onRetrieveCurrencyListError() {
-       // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    errorMessage.value = R.string.post_error
     }
 
-    private fun onRetrieveCurrencyListSuccess() {
-      //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+    private fun onRetrieveCurrencyListSuccess(currencyList:List<CurrencyModel>) {
+        currencyListAdapter.updatePostList(currencyList)
     }
 
     private fun onRetrieveCurrencyListFinish() {
@@ -55,5 +62,6 @@ class CurrencyLiveViewModel : BaseViewModel(){
 
     private fun onRetrieveCurrencyListStart() {
         loadingVisibility.value = View.VISIBLE;
+        errorMessage.value = null
     }
 }
