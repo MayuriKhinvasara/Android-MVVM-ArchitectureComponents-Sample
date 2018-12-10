@@ -1,1 +1,1 @@
-# LiveCurrencyConvertor
+# Android MVVM Pattern
